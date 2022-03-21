@@ -1,5 +1,5 @@
 languageCode: "en-US"
-baseUrl: "/blog/"
+baseUrl: "crc.dev/blog/"
 title: "Container Runtime Control"
 theme: "anubis"
 paginate: 10
