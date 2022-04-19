@@ -1,6 +1,6 @@
 languageCode: "en-US"
 baseUrl: "https://crc.dev/blog/"
-title: "Container Runtime Control"
+title: "CRC - Run OpenShift 4 on your laptop"
 theme: "anubis"
 paginate: 10
 enableRobotsTXT: true
@@ -22,7 +22,7 @@ menu:
     weight: 3
 
 params:
-  author: "Container Runtime Control Contributors"
+  author: "CRC Contributors"
   dateFormat: "2006-01-02"
   paginationSinglePost: true
   readMore: false
