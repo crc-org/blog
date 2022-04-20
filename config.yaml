@@ -7,10 +7,10 @@ enableRobotsTXT: true
 
 menu:
   main:
-  - identifier: archive
-    name: Archive
-    title: Archive
-    url: /posts/
+  - identifier: about
+    name: About
+    title: About
+    url: /about/
     weight: 1
   - identifier: docs
     name: Docs 
@@ -20,6 +20,11 @@ menu:
     name: Releases
     url: https://mirror.openshift.com/pub/openshift-v4/clients/crc/
     weight: 3
+  - identifier: archive
+    name: Archive
+    title: Archive
+    url: /posts/
+    weight: 4
 
 params:
   author: "CRC Contributors"
