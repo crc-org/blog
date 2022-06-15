@@ -1,1 +1,81 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/posts/</link><description>CRC - Run OpenShift 4 on your laptop (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Mon, 21 Mar 2022 17:11:56 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Placeholder</title><link>https://crc.dev/blog/posts/placeholder/</link><pubDate>Mon, 21 Mar 2022 17:11:56 +0530</pubDate><guid>https://crc.dev/blog/posts/placeholder/</guid><description>&lt;p>This is just a placeholder post to generate the Archives page!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/posts/</link><description>CRC - Run OpenShift 4 on your laptop (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 15 Jun 2022 16:08:10 +0200</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Running crc on M1 machines</title><link>https://crc.dev/blog/posts/2022-04-04-vfkit/</link><pubDate>Wed, 15 Jun 2022 16:08:10 +0200</pubDate><guid>https://crc.dev/blog/posts/2022-04-04-vfkit/</guid><description>&lt;p>CRC can be used on a MacBook to run an OpenShift cluster or podman containers. However this support was limited to x86_64 CPUs until recently.
+With Apple&amp;rsquo;s ongoing switch to aarch64 M1 CPUs, we&amp;rsquo;ve been asked numerous times when CRC would get M1 support.
+This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.4.1">crc 2.4.1&lt;/a>.
+This blog post will describe the challenges we had to overcome when we decided to add that support.&lt;/p>
+&lt;h1 id="background" >Background
+&lt;span>
+&lt;a href="#background">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>CRC runs its OpenShift cluster/podman runtime by starting a virtual machine (VM) using a disk image built in advance and packaged in what we call a &lt;em>bundle&lt;/em>.&lt;/p>
+&lt;p>On macOS, we use &lt;a href="https://github.com/moby/hyperkit">hyperkit&lt;/a> as our
+hypervisor. It has served us well over the years, but lately it hasn&amp;rsquo;t seen a
+lot of maintainance, and we&amp;rsquo;ve been hitting a few annoying bugs in its &lt;a href="https://github.com/mirage/ocaml-qcow">ocaml
+qcow2 implementation&lt;/a>.&lt;/p>
+&lt;p>However, the main problem with hyperkit is that it&amp;rsquo;s x86_64 only. It does not
+provide any M1 support, so we had to look for alternatives if we want to run
+CRC on a M1 mac.&lt;/p>
+&lt;h1 id="qemu-and-virtualizationframework" >QEMU and virtualization.framework
+&lt;span>
+&lt;a href="#qemu-and-virtualizationframework">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>When looking for hypervisors we could use on macOS, we found two candidates:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.qemu.org/">QEMU&lt;/a> with its &lt;a href="https://wiki.qemu.org/Features/HVF">hvf acceleration&lt;/a>&lt;/li>
+&lt;li>Apple&amp;rsquo;s own &lt;a href="https://developer.apple.com/documentation/virtualization">virtualization framework&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="qemu" >QEMU
+&lt;span>
+&lt;a href="#qemu">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>QEMU is a widely used hypervisor on Linux systems, but it can also be used on
+Windows and macOS. On macOS, it can use Apple&amp;rsquo;s &lt;a href="https://developer.apple.com/documentation/hypervisor">hypervisor
+framework&lt;/a> to make use of
+virtualization support in hardware.
+It has a huge range of features. In particular it supports many virtio devices including &lt;a href="https://virtio-fs.gitlab.io/">virtiofs&lt;/a> for file sharing,
+Its main drawback is that for supply chain trust reasons, we&amp;rsquo;d have to maintain
+our own QEMU builds, which can be quite an endeavour given the size of QEMU&amp;rsquo;s
+code base (2 million lines of C code).&lt;/p>
+&lt;h2 id="apples-virtualization-framework" >Apple&amp;rsquo;s virtualization framework
+&lt;span>
+&lt;a href="#apples-virtualization-framework">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>This is a &lt;a href="https://developer.apple.com/documentation/virtualization">high level Objective-C/swift framework&lt;/a> to start virtual machines on Apple hardware with a small set of virtio devices (disk, network, &amp;hellip;).
+It was introduced in macOS &amp;lsquo;Big Sur&amp;rsquo; 11.0, and only supports macOS and Linux virtual machines. Luckily, our bundle is a Linux image, so it&amp;rsquo;s good enough for us!
+It obviously supports both x86_64 and M1 CPUs.&lt;/p>
+&lt;p>Its main advantage and drawback is that it&amp;rsquo;s a high-level framework maintained by Apple. This means very little code is needed to create a virtual machine with it, and Apple maintains and updates all the low-level virtualization code for us.
+This is also a drawback, as this framework is closed source. This means we fully depend on Apple for fixing any bugs that we might find. And unfortunately, we&amp;rsquo;ve already hit such bugs in Apple&amp;rsquo;s implementation of virtiofs, a &lt;a href="https://developer.apple.com/bug-reporting/">bug has been filed&lt;/a>, but we have no control over when it will get fixed, if ever.&lt;/p>
+&lt;h1 id="introducing-vfkit" >Introducing vfkit
+&lt;span>
+&lt;a href="#introducing-vfkit">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>Apple&amp;rsquo;s virtualization framework looks promising, but it&amp;rsquo;s just a framework. A framework is similar to a shared library on Linux, your code can link to it to use what it offers, but you can&amp;rsquo;t directly use it as a commandline or GUI tool.
+One particular caveat with the virtualization framework is that any virtual machines you start with it will only stay alive as long as the process which started it is alive.&lt;/p>
+&lt;p>We could not find any pre-existing FOSS commandline tool to manage virtual machines with Apple&amp;rsquo;s virtualization framework, but luckily for us, there are &lt;a href="https://github.com/Code-Hex/vz">go bindings for it&lt;/a>.
+This allowed us to write a small commandline wrapper using these bindings which we called &lt;a href="https://github.com/code-ready/vfkit">&lt;code>vfkit&lt;/code>&lt;/a>
+It does not cover all features exposed by &lt;code>Code-Hex/vz&lt;/code> and the virtualization framework, but we can expand this over time. At the moment, its commandline is enough for CRC&amp;rsquo;s needs, including support for both system and usermode networking.&lt;/p>
+&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
+&lt;span>
+&lt;a href="#where-were-at">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>With &lt;code>vfkit&lt;/code>, we have a way of starting virtual machines on M1 hardware. The second thing that we need is a bundle with the appropriate disk images. The two main changes we had to do were:&lt;/p>
+&lt;ul>
+&lt;li>move from qcow2 to raw disk images as this is the only format Apple&amp;rsquo;s virtualization framework supports. This meant modifying CRC to make use of &lt;a href="https://en.wikipedia.org/wiki/Sparse_file">sparse files&lt;/a> as much as possible to minimize disk usage. The &lt;a href="https://www.manpagez.com/man/2/clonefile/">&lt;code>clonefile&lt;/code>&lt;/a> system call was also very handy to limit the amount of disk space that we use&lt;/li>
+&lt;li>the &lt;a href="https://www.kernel.org/doc/Documentation/arm64/booting.txt">aarch64 kernel &lt;strong>must&lt;/strong> be uncompressed&lt;/a>, otherwise the virtual machine won&amp;rsquo;t start. This is fairly tedious to figure out as you don&amp;rsquo;t get any output from the virtual machine to let you know what went wrong.&lt;/li>
+&lt;/ul>
+&lt;p>After these changes, we were able to generate a podman bundle to use natively on a M1 machine. As its x86_64 counterpart, this bundle is built on top of Fedora CoreOS.
+Running OpenShift on a M1 CPU won&amp;rsquo;t be possible soon, as it&amp;rsquo;s currently based on Red Hat CoreOS 8, and &lt;a href="https://access.redhat.com/solutions/6545411">its kernel is incompatible with M1 CPUs&lt;/a>.&lt;/p>
+&lt;p>&lt;code>vfkit&lt;/code> support for x86_64 hardware landed in crc 2.3.0 release, and so far did not have many issues reported.
+We merged M1 vfkit support in crc 2.4.1, but had last minute issues related to signing, so it&amp;rsquo;s only available as an &lt;a href="https://github.com/code-ready/crc/releases/download/v2.4.1/crc-macos-unsigned-arm64.pkg">unsigned installer&lt;/a> for this release. Hopefully this will be solved in time for crc 2.5.&lt;/p>
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item></channel></rss>
