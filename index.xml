@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/</link><description>CRC - Run OpenShift 4 on your laptop (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Running crc on M1 machines</title><link>https://crc.dev/blog/posts/2022-06-15-vfkit/</link><pubDate>Wed, 15 Jun 2022 16:08:10 +0200</pubDate><guid>https://crc.dev/blog/posts/2022-06-15-vfkit/</guid><description>&lt;p>Since its initial release, CRC has been running on macOS as well as on Windows and Linux.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/</link><description>CRC - Run OpenShift 4 on your laptop (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Running ocp on M1 machines</title><link>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</link><pubDate>Wed, 17 Aug 2022 08:58:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</guid><description>&lt;p>With the release of CRC 2.4.1 it was possible to run on Apple&amp;rsquo;s latest offering of M1-based machines.
+However, the support was limited to podman preset. Numerous times we received requests if it would be
+possible to instead offer an OpenShift that would run on these machines. This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>.
+This blog post will describe the challenges we had to overcome when we decided to add that support.&lt;/p>
+&lt;h1 id="background" >Background
+&lt;span>
+&lt;a href="#background">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>CRC is a tool that manages the lifecycle of a virtual machine and allows you to run an OpenShift cluster or podman containers on a laptop or local workstation.
+It can be used on a macOS, Windows or Linux machine.
+It runs its OpenShift cluster/podman runtime using a disk image built in advance and packaged in what we call a &lt;em>bundle&lt;/em>.
+On each platform, we try to use native hypervisors, such as KVM on Linux, Hyper-V on Windows, and using the virtualization framework on macOS.&lt;/p>
+&lt;h1 id="issue-of-running-ocp-on-m1" >Issue of running OCP on M1
+&lt;span>
+&lt;a href="#issue-of-running-ocp-on-m1">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>Openshift container platform (OCP) uses Red Hat Core OS (RHCOS) which is based on latest RHEL-8 which is
+compiled for a 64K page size, but Apple M1 processor uses 4K or a maximum size of 16K page sizes &lt;a href="https://access.redhat.com/discussions/5966451">link&lt;/a>.&lt;/p>
+&lt;h1 id="how-it-works" >How it works
+&lt;span>
+&lt;a href="#how-it-works">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>After we provision the Openshift cluster we replaced the RHEL-8 kernel packages to RHEL-9 which doesn&amp;rsquo;t have issue to boot on
+Apple M1 machines. Using this kernel it is possible to workaround this issue, and we are able to run the created disk image on M1.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ rpm -qa | grep kernel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-5.14.0-70.13.1.el9_0.aarch64
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-core-5.14.0-70.13.1.el9_0.aarch64
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-modules-extra-5.14.0-70.13.1.el9_0.aarch64
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-modules-5.14.0-70.13.1.el9_0.aarch64
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
+&lt;span>
+&lt;a href="#where-were-at">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>Once RHCOS switches to RHEL-9, we don&amp;rsquo;t need to replace the kernel bits manually and this workaround can be removed.&lt;/p>
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running crc on M1 machines</title><link>https://crc.dev/blog/posts/2022-06-15-vfkit/</link><pubDate>Wed, 15 Jun 2022 16:08:10 +0200</pubDate><guid>https://crc.dev/blog/posts/2022-06-15-vfkit/</guid><description>&lt;p>Since its initial release, CRC has been running on macOS as well as on Windows and Linux.
 However macOS support was limited to Apple machines with an Intel CPUs until recently.
 With Apple&amp;rsquo;s ongoing switch to aarch64 M1 CPUs, we&amp;rsquo;ve been asked numerous times when CRC would get M1 support.
 This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.4.1">crc 2.4.1&lt;/a>.
