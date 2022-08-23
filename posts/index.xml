@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/posts/</link><description>CRC - Run OpenShift 4 on your laptop (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 17 Aug 2022 08:58:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Running ocp on M1 machines</title><link>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</link><pubDate>Wed, 17 Aug 2022 08:58:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</guid><description>&lt;p>With the release of CRC 2.4.1 it was possible to run on Apple&amp;rsquo;s latest offering of M1-based machines.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/posts/</link><description>CRC - Run OpenShift 4 on your laptop (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Mon, 22 Aug 2022 09:14:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
+not updated since then. During our 2.x development cycle, we made effort on CRC&amp;rsquo;s side to decouple the bundles from the release
+artifacts. It allows us to create the bundle independently of the release and upload it to separate location.&lt;/p>
+&lt;p>Another change we made during 2.x is to add support for presets and from starting we are supporting &lt;code>podman&lt;/code> and &lt;code>openshift&lt;/code>
+preset with &lt;code>openshift&lt;/code> as default. With the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>
+an &lt;code>okd&lt;/code> preset was added and users can now use same &lt;code>crc&lt;/code> binary to start a OKD cluster.&lt;/p>
+&lt;p>&lt;em>A &amp;ldquo;preset&amp;rdquo; is a set of configuration parameters for the bundle to be used, the assigned memory and CPU and changes behaviour if needed for the startup process.&lt;/em>&lt;/p>
+&lt;h1 id="how-it-works" >How it works
+&lt;span>
+&lt;a href="#how-it-works">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;p>The CRC team created the OKD bundle for &lt;a href="https://github.com/openshift/okd/releases/tag/4.11.0-0.okd-2022-07-29-154152">4.11.0-0.okd-2022-07-29-154152&lt;/a> release
+and pushed it as container image to &lt;a href="https://quay.io/repository/crcont/okd-bundle">quay&lt;/a>. With the &lt;code>okd&lt;/code> preset, the user is now able to
+run an OKD cluster locally similar to OCP.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ crc config set preset okd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Changes to configuration property &lt;span style="color:#e6db74">&amp;#39;preset&amp;#39;&lt;/span> are only applied when the CRC instance is created.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>If you already have a running CRC instance with different preset, &lt;span style="color:#66d9ef">then&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> this configuration change to take effect, delete the CRC instance with &lt;span style="color:#e6db74">&amp;#39;crc delete&amp;#39;&lt;/span>, setup it with &lt;span style="color:#e6db74">`&lt;/span>crc setup&lt;span style="color:#e6db74">`&lt;/span> and start it with &lt;span style="color:#e6db74">&amp;#39;crc start&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config view
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- consent-telemetry : yes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- preset : okd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Checking &lt;span style="color:#66d9ef">if&lt;/span> /Users/prkumar/.crc/cache/crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle exists
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Getting bundle &lt;span style="color:#66d9ef">for&lt;/span> the CRC executable
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Downloading crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
+&lt;span>
+&lt;a href="#where-were-at">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h1>&lt;ul>
+&lt;li>Update the CRC related pages on OKD&lt;/li>
+&lt;li>Put CI in place to create OKD bundles for each release and upload it to quay.&lt;/li>
+&lt;li>Coordinate with OKD community to interact with users.&lt;/li>
+&lt;/ul>
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running ocp on M1 machines</title><link>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</link><pubDate>Wed, 17 Aug 2022 08:58:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</guid><description>&lt;p>With the release of CRC 2.4.1 it was possible to run on Apple&amp;rsquo;s latest offering of M1-based machines.
 However, the support was limited to podman preset. Numerous times we received requests if it would be
 possible to instead offer an OpenShift that would run on these machines. This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>.
 This blog post will describe the challenges we had to overcome when we decided to add that support.&lt;/p>
