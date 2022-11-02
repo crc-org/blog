@@ -1,4 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/</link><description>CRC - Run OpenShift 4 on your laptop (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Run OpenShift 4 on your laptop</title><link>https://crc.dev/blog/</link><description>CRC - Run OpenShift 4 on your laptop (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Different bundle types option in crc</title><link>https://crc.dev/blog/posts/2022-09-26-bundle-option-in-crc/</link><pubDate>Mon, 26 Sep 2022 10:41:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-09-26-bundle-option-in-crc/</guid><description>&lt;p>CRC provides a config option called &lt;code>bundle&lt;/code> to configure the &lt;em>location&lt;/em> of the bundle,
+until 2.9 release of CRC the bundle option could only accept local filesystem path
+which meant users needed to download the bundle in advance before consuming it. The move to a
+container registry for hosting the okd and podman bundles, introduces another step in the
+process as bundles are now generated as an OCI container image and the *.crcbundle file
+needs to be extracted from the image.&lt;/p>
+&lt;p>Since this adds significant friction for users wanting to use different bundles, we decided
+to extend the bundle config option to also support container registry urls and http/https urls
+in addition to local filesystem paths.&lt;/p>
+&lt;p>Starting with CRC 2.9.0 release, &lt;code>bundle&lt;/code> config option supports three different way to configure
+bundle location, these are explained below with use cases.&lt;/p>
+&lt;p>Case 1: If users want to use their own internal container registry for podman/okd bundles then they can
+&lt;em>copy&lt;/em> the bundle images from &lt;code>quay.io&lt;/code> to their internal container registry using &lt;a href="https://github.com/containers/skopeo">skopeo&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Copy latest 4.2.0 podman bundle to internal registry&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ skopeo copy -a docker://quay.io/crcont/podman-bundle:4.2.0 docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config set bundle docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config set preset podman
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 2: If user tries to use the bundle which is part of internal http/https location&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ crc config set bundle https://&amp;lt;internal_server&amp;gt;/crc_libvirt_4.11.3_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 3: If a user tries to use the bundle which is downloaded locally&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ crc config set bundle &amp;lt;local_bundle_path&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
 not updated since then. During our 2.x development cycle, we made effort on CRC&amp;rsquo;s side to decouple the bundles from the release
 artifacts. It allows us to create the bundle independently of the release and upload it to separate location.&lt;/p>
 &lt;p>Another change we made during 2.x is to add support for presets and from starting we are supporting &lt;code>podman&lt;/code> and &lt;code>openshift&lt;/code>
