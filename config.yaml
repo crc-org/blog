@@ -37,7 +37,7 @@ params:
   style: light
   social:
   - id: github
-    name: code-ready
+    name: crc-org
   - id: email
     name: devtools-cdk@redhat.com
 

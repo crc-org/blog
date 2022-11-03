@@ -10,4 +10,4 @@ See the [OpenShift documentation](https://docs.openshift.com/container-platform/
 
 CRC includes the crc command-line interface (CLI) to interact with the CRC instance using the desired container runtime.
 
-Learn more and contribute on [GitHub](https://github.com/code-ready/crc).
+Learn more and contribute on [GitHub](https://github.com/crc-org/crc).

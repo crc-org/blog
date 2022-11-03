@@ -43,4 +43,4 @@ $ crc setup
 $ crc start
 ```
 
-As usual, we'd like to get as much [feedback](https://github.com/code-ready/crc/issues/new/choose) as possible on all this work!
+As usual, we'd like to get as much [feedback](https://github.com/crc-org/crc/issues/new/choose) as possible on all this work!
