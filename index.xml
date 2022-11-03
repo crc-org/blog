@@ -26,11 +26,11 @@ bundle location, these are explained below with use cases.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ crc config set bundle &amp;lt;local_bundle_path&amp;gt;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
 not updated since then. During our 2.x development cycle, we made effort on CRC&amp;rsquo;s side to decouple the bundles from the release
 artifacts. It allows us to create the bundle independently of the release and upload it to separate location.&lt;/p>
 &lt;p>Another change we made during 2.x is to add support for presets and from starting we are supporting &lt;code>podman&lt;/code> and &lt;code>openshift&lt;/code>
-preset with &lt;code>openshift&lt;/code> as default. With the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>
+preset with &lt;code>openshift&lt;/code> as default. With the recently released &lt;a href="https://github.com/crc-org/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>
 an &lt;code>okd&lt;/code> preset was added and users can now use same &lt;code>crc&lt;/code> binary to start a OKD cluster.&lt;/p>
 &lt;p>&lt;em>A &amp;ldquo;preset&amp;rdquo; is a set of configuration parameters for the bundle to be used, the assigned memory and CPU and changes behaviour if needed for the startup process.&lt;/em>&lt;/p>
 &lt;h1 id="how-it-works" >How it works
@@ -70,9 +70,9 @@ run an OKD cluster locally similar to OCP.&lt;/p>
 &lt;li>Put CI in place to create OKD bundles for each release and upload it to quay.&lt;/li>
 &lt;li>Coordinate with OKD community to interact with users.&lt;/li>
 &lt;/ul>
-&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running ocp on M1 machines</title><link>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</link><pubDate>Wed, 17 Aug 2022 08:58:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</guid><description>&lt;p>With the release of CRC 2.4.1 it was possible to run on Apple&amp;rsquo;s latest offering of M1-based machines.
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running ocp on M1 machines</title><link>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</link><pubDate>Wed, 17 Aug 2022 08:58:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-17-ocp-on-m1/</guid><description>&lt;p>With the release of CRC 2.4.1 it was possible to run on Apple&amp;rsquo;s latest offering of M1-based machines.
 However, the support was limited to podman preset. Numerous times we received requests if it would be
-possible to instead offer an OpenShift that would run on these machines. This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>.
+possible to instead offer an OpenShift that would run on these machines. This has changed with the recently released &lt;a href="https://github.com/crc-org/crc/releases/tag/v2.7.1">crc 2.7.1&lt;/a>.
 This blog post will describe the challenges we had to overcome when we decided to add that support.&lt;/p>
 &lt;h1 id="background" >Background
 &lt;span>
@@ -112,10 +112,10 @@ Apple M1 machines. Using this kernel it is possible to workaround this issue, an
 &lt;/a>
 &lt;/span>
 &lt;/h1>&lt;p>Once RHCOS switches to RHEL-9, we don&amp;rsquo;t need to replace the kernel bits manually and this workaround can be removed.&lt;/p>
-&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running crc on M1 machines</title><link>https://crc.dev/blog/posts/2022-06-15-vfkit/</link><pubDate>Wed, 15 Jun 2022 16:08:10 +0200</pubDate><guid>https://crc.dev/blog/posts/2022-06-15-vfkit/</guid><description>&lt;p>Since its initial release, CRC has been running on macOS as well as on Windows and Linux.
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running crc on M1 machines</title><link>https://crc.dev/blog/posts/2022-06-15-vfkit/</link><pubDate>Wed, 15 Jun 2022 16:08:10 +0200</pubDate><guid>https://crc.dev/blog/posts/2022-06-15-vfkit/</guid><description>&lt;p>Since its initial release, CRC has been running on macOS as well as on Windows and Linux.
 However macOS support was limited to Apple machines with an Intel CPUs until recently.
 With Apple&amp;rsquo;s ongoing switch to aarch64 M1 CPUs, we&amp;rsquo;ve been asked numerous times when CRC would get M1 support.
-This has changed with the recently released &lt;a href="https://github.com/code-ready/crc/releases/tag/v2.4.1">crc 2.4.1&lt;/a>.
+This has changed with the recently released &lt;a href="https://github.com/crc-org/crc/releases/tag/v2.4.1">crc 2.4.1&lt;/a>.
 This blog post will describe the challenges we had to overcome when we decided to add that support.&lt;/p>
 &lt;h1 id="background" >Background
 &lt;span>
@@ -179,7 +179,7 @@ This is also a drawback, as this framework is closed source. This means we fully
 &lt;/h1>&lt;p>Apple&amp;rsquo;s virtualization framework looks promising, but it&amp;rsquo;s just a framework. A framework is similar to a shared library on Linux, your code can link to it to use what it offers, but you can&amp;rsquo;t directly use it as a commandline or GUI tool.
 One particular caveat with the virtualization framework is that any virtual machines you start with it will only stay alive as long as the process which started it is alive.&lt;/p>
 &lt;p>We could not find any pre-existing FOSS commandline tool to manage virtual machines with Apple&amp;rsquo;s virtualization framework, but luckily for us, there are &lt;a href="https://github.com/Code-Hex/vz">go bindings for it&lt;/a>.
-This allowed us to write a small commandline wrapper using these bindings which we called &lt;a href="https://github.com/code-ready/vfkit">&lt;code>vfkit&lt;/code>&lt;/a>
+This allowed us to write a small commandline wrapper using these bindings which we called &lt;a href="https://github.com/crc-org/vfkit">&lt;code>vfkit&lt;/code>&lt;/a>
 It does not cover all features exposed by &lt;code>Code-Hex/vz&lt;/code> and the virtualization framework, but we can expand this over time. At the moment, its commandline is enough for CRC&amp;rsquo;s needs, including support for both system and usermode networking.&lt;/p>
 &lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
 &lt;span>
@@ -195,9 +195,9 @@ It does not cover all features exposed by &lt;code>Code-Hex/vz&lt;/code> and the
 &lt;p>After these changes, we were able to generate a podman bundle to use natively on a M1 machine. As its x86_64 counterpart, this bundle is built on top of Fedora CoreOS.
 Running OpenShift on a M1 CPU won&amp;rsquo;t be possible soon, as it&amp;rsquo;s currently based on Red Hat CoreOS 8, and &lt;a href="https://access.redhat.com/solutions/6545411">its kernel is incompatible with M1 CPUs&lt;/a>.&lt;/p>
 &lt;p>&lt;code>vfkit&lt;/code> support for x86_64 hardware landed in crc 2.3.0 release, and so far did not have many issues reported.
-We merged M1 vfkit support in crc 2.4.1, but had last minute issues related to signing, so it&amp;rsquo;s only available as an &lt;a href="https://github.com/code-ready/crc/releases/download/v2.4.1/crc-macos-unsigned-arm64.pkg">unsigned installer&lt;/a> for this release. Hopefully this will be solved in time for crc 2.5.&lt;/p>
+We merged M1 vfkit support in crc 2.4.1, but had last minute issues related to signing, so it&amp;rsquo;s only available as an &lt;a href="https://github.com/crc-org/crc/releases/download/v2.4.1/crc-macos-unsigned-arm64.pkg">unsigned installer&lt;/a> for this release. Hopefully this will be solved in time for crc 2.5.&lt;/p>
 &lt;p>Once this is finalized, we still have plenty to explore in vfkit and M1 support: file sharing support, OKD bundles, microshift bundles, &amp;hellip; so stay tuned!&lt;/p>
-&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/code-ready/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>About</title><link>https://crc.dev/blog/about/</link><pubDate>Wed, 20 Apr 2022 00:00:00 +0000</pubDate><guid>https://crc.dev/blog/about/</guid><description>&lt;p>CRC brings a minimal OpenShift Container Platform 4 cluster and Podman container runtime to your local computer. These runtimes provide minimal environments for development and testing purposes. CRC is mainly targeted at running on developers&amp;rsquo; desktops. For other OpenShift Container Platform use cases, such as headless or multi-developer setups, use the &lt;a href="https://console.redhat.com/openshift/install">full OpenShift installer&lt;/a>.&lt;/p>
+&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>About</title><link>https://crc.dev/blog/about/</link><pubDate>Wed, 20 Apr 2022 00:00:00 +0000</pubDate><guid>https://crc.dev/blog/about/</guid><description>&lt;p>CRC brings a minimal OpenShift Container Platform 4 cluster and Podman container runtime to your local computer. These runtimes provide minimal environments for development and testing purposes. CRC is mainly targeted at running on developers&amp;rsquo; desktops. For other OpenShift Container Platform use cases, such as headless or multi-developer setups, use the &lt;a href="https://console.redhat.com/openshift/install">full OpenShift installer&lt;/a>.&lt;/p>
 &lt;p>See the &lt;a href="https://docs.openshift.com/container-platform/latest/welcome/index.html#developer-activities">OpenShift documentation&lt;/a> for a full introduction to OpenShift Container Platform.&lt;/p>
 &lt;p>CRC includes the crc command-line interface (CLI) to interact with the CRC instance using the desired container runtime.&lt;/p>
-&lt;p>Learn more and contribute on &lt;a href="https://github.com/code-ready/crc">GitHub&lt;/a>.&lt;/p></description></item></channel></rss>
+&lt;p>Learn more and contribute on &lt;a href="https://github.com/crc-org/crc">GitHub&lt;/a>.&lt;/p></description></item></channel></rss>
