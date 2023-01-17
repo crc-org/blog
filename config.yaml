@@ -1,6 +1,6 @@
 languageCode: "en-US"
 baseUrl: "https://crc.dev/blog/"
-title: "CRC - Run OpenShift 4 on your laptop"
+title: "CRC - Runs Containers"
 theme: "anubis"
 paginate: 10
 enableRobotsTXT: true
