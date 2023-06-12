@@ -1,4 +1,91 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Runs Containers</title><link>https://crc.dev/blog/</link><description>CRC - Runs Containers (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title> Introducing MicroShift preset for CRC</title><link>https://crc.dev/blog/posts/2023-04-05-microshift-on-crc/</link><pubDate>Wed, 05 Apr 2023 07:12:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-04-05-microshift-on-crc/</guid><description>&lt;p>Are you a developer who wants to use OpenShift Kubernetes Engine but doesn&amp;rsquo;t have a powerful system?
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on CRC - Runs Containers</title><link>https://crc.dev/blog/</link><description>CRC - Runs Containers (About)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Wed, 20 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://crc.dev/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>How to create OKD bundle</title><link>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</link><pubDate>Mon, 05 Jun 2023 11:43:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
+It is a great way to learn about OpenShift/OKD/MicroShift and to test out new features.&lt;/p>
+&lt;p>In this blog post, we will explain to you, how to create an OKD bundle for CRC.&lt;/p>
+&lt;h2 id="prerequisites" >Prerequisites
+&lt;span>
+&lt;a href="#prerequisites">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>To create an OKD bundle, you will need the following:&lt;/p>
+&lt;ul>
+&lt;li>A computer with a recent version of Fedora, CentOS Stream or RHEL&lt;/li>
+&lt;li>At least 60-70 GB of free disk space&lt;/li>
+&lt;li>8 CPUs&lt;/li>
+&lt;li>24 GB of memory&lt;/li>
+&lt;/ul>
+&lt;h2 id="getting-the-okd-release" >Getting the OKD Release
+&lt;span>
+&lt;a href="#getting-the-okd-release">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>The first step is to get the OKD release version that you want to use. This information is present at OKD GitHub repo&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/okd-project/okd/releases">https://github.com/okd-project/okd/releases&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>For example, the latest OKD version at the time of this writing is &lt;a href="https://github.com/okd-project/okd/releases/tag/4.13.0-0.okd-2023-06-04-080300">4.13.0-0.okd-2023-06-04-080300&lt;/a>, this version number will be needed in the following steps.&lt;/p>
+&lt;h2 id="cloning-the-snc-repository" >Cloning the SNC Repository
+&lt;span>
+&lt;a href="#cloning-the-snc-repository">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>Next, you need to clone the SNC repository. This repository contains the scripts that you will use to create the bundle.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/crc-org/snc.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate OKD bundles for older releases, first switch to the appropriate branch:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout origin/release-4.12
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="setting-the-okd-version" >Setting the OKD Version
+&lt;span>
+&lt;a href="#setting-the-okd-version">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You need to set the OKD_VERSION environment variable to the version of OKD that you want to use.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>export OKD_VERSION&lt;span style="color:#f92672">=&lt;/span>4.12.0-0.okd-2023-04-16-041331
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-pull-secret" >Creating the Pull Secret
+&lt;span>
+&lt;a href="#creating-the-pull-secret">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You need to create a dummy pull secret that will be used for snc script. You can create this dummmy pull secret using the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat &lt;span style="color:#e6db74">&amp;lt;&amp;lt;EOF &amp;gt; pullsecret.json
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;auths&amp;#34;: {
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;fake&amp;#34;: {
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;auth&amp;#34;: &amp;#34;Zm9vOmJhcgo=&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">}
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-bundle" >Creating the Bundle
+&lt;span>
+&lt;a href="#creating-the-bundle">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You are now ready to create the bundle. You can do this by running the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>pullsecret.json ./snc.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>snc.sh&lt;/code> script finish successfully (takes around 40-50 mins)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>./createdisk.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="starting-the-cluster" >Starting the Cluster
+&lt;span>
+&lt;a href="#starting-the-cluster">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>Once you have created the bundle, you can start the cluster by running the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created OKD bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
+&lt;h2 id="conclusion" >Conclusion
+&lt;span>
+&lt;a href="#conclusion">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>This blog post has shown you how to create an OKD bundle for CRC. By following these steps, you can quickly and easily spin up a local cluster using the version of OKD that you want.&lt;/p></description></item><item><title> Introducing MicroShift preset for CRC</title><link>https://crc.dev/blog/posts/2023-04-05-microshift-on-crc/</link><pubDate>Wed, 05 Apr 2023 07:12:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-04-05-microshift-on-crc/</guid><description>&lt;p>Are you a developer who wants to use OpenShift Kubernetes Engine but doesn&amp;rsquo;t have a powerful system?
 Or do you need to deploy to a small form factor or edge computing environment?
 If so, you&amp;rsquo;ll be happy to hear about our new &lt;a href="https://access.redhat.com/documentation/en-us/red_hat_build_of_microshift/4.12/html/getting_started/index">MicroShift&lt;/a> preset,
 a lightweight version of OpenShift Kubernetes Engine that&amp;rsquo;s optimized for resource-limited environments.&lt;/p>
