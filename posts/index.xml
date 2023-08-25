@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Runs Containers</title><link>https://crc.dev/blog/posts/</link><description>CRC - Runs Containers (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Mon, 05 Jun 2023 11:43:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>How to create OKD bundle</title><link>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</link><pubDate>Mon, 05 Jun 2023 11:43:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Runs Containers</title><link>https://crc.dev/blog/posts/</link><description>CRC - Runs Containers (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Tue, 22 Aug 2023 12:30:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>A Step-by-Step Guide to Creating the MicroShift next Bundle</title><link>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</link><pubDate>Tue, 22 Aug 2023 12:30:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
+It is a great way to learn about OpenShift/OKD/MicroShift and to test out new features.&lt;/p>
+&lt;p>If you&amp;rsquo;re looking to experiment with the upcoming MicroShift release and want to learn
+how to create the bundle to consume it with CRC, you&amp;rsquo;re in the right place!
+This blog post will guide you through the process step by step.&lt;/p>
+&lt;h2 id="prerequisites" >Prerequisites
+&lt;span>
+&lt;a href="#prerequisites">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>To create a MicroShift bundle, you will need the following:&lt;/p>
+&lt;ul>
+&lt;li>A computer (or VM which have nested virtualization enabled) with RHEL-9&lt;/li>
+&lt;li>At least 60-70 GB of free disk space&lt;/li>
+&lt;li>4 CPUs&lt;/li>
+&lt;li>8 GB of memory&lt;/li>
+&lt;/ul>
+&lt;h2 id="getting-the-microshift-pre-release" >Getting the MicroShift Pre Release
+&lt;span>
+&lt;a href="#getting-the-microshift-pre-release">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>The first step is to make sure there is a MicroShift prerelease version available that you want to use. This information
+is present at MicroShift GitHub repo&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/openshift/MicroShift/releases">https://github.com/openshift/MicroShift/releases&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>For example, the latest MicroShift version at the time of this writing is &lt;a href="https://github.com/openshift/microshift/releases/tag/4.14.0-ec.4-202308011235.p0">4.14.0-ec.4&lt;/a>.&lt;/p>
+&lt;h2 id="cloning-the-snc-repository" >Cloning the SNC Repository
+&lt;span>
+&lt;a href="#cloning-the-snc-repository">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>Next, you need to clone the SNC repository. This repository contains the scripts that you will use to create the bundle.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/crc-org/snc.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example, it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate MicroShift bundles for prerelease, first switch to the appropriate branch:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout origin/release-4.14
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="getting-the-pull-secret" >Getting the Pull Secret
+&lt;span>
+&lt;a href="#getting-the-pull-secret">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You need to have a pull secret that will be used for snc script. You can download this pull secret
+from &lt;a href="https://console.redhat.com/openshift/create/local">here&lt;/a> using &lt;code>Download Pull Secret&lt;/code> button.&lt;/p>
+&lt;h2 id="creating-the-bundle" >Creating the Bundle
+&lt;span>
+&lt;a href="#creating-the-bundle">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You are now ready to create the bundle. You can do this by running the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>&amp;lt;downloaded_pull_secret_file_path&amp;gt; MICROSHIFT_PRERELEASE&lt;span style="color:#f92672">=&lt;/span>yes ./microshift.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>microshift&lt;/code> script finish successfully (takes around 30-40 mins)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>./createdisk.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Congratulations! You&amp;rsquo;ve successfully created a prerelease version of MicroShift bundle&lt;/strong>&lt;/p>
+&lt;h2 id="starting-the-cluster" >Starting the Cluster
+&lt;span>
+&lt;a href="#starting-the-cluster">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>Once you have created the bundle, you can start the cluster by running the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created MicroShift bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
+&lt;h2 id="conclusion" >Conclusion
+&lt;span>
+&lt;a href="#conclusion">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>This blog post has shown you how to create a MicroShift bundle for prerelease and use it with CRC. By following these steps, you can quickly and easily spin up a local cluster using the prerelease version of MicroShift.&lt;/p></description></item><item><title>How to create OKD bundle</title><link>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</link><pubDate>Mon, 05 Jun 2023 11:43:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-06-05-create-okd-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
 It is a great way to learn about OpenShift/OKD/MicroShift and to test out new features.&lt;/p>
 &lt;p>In this blog post, we will explain to you, how to create an OKD bundle for CRC.&lt;/p>
 &lt;h2 id="prerequisites" >Prerequisites
