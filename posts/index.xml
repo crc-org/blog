@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Runs Containers</title><link>https://crc.dev/blog/posts/</link><description>CRC - Runs Containers (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Tue, 22 Aug 2023 12:30:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>A Step-by-Step Guide to Creating the MicroShift next Bundle</title><link>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</link><pubDate>Tue, 22 Aug 2023 12:30:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on CRC - Runs Containers</title><link>https://crc.dev/blog/posts/</link><description>CRC - Runs Containers (Posts)</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Fri, 22 Mar 2024 12:39:10 +0530</lastBuildDate><atom:link href="https://crc.dev/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>How to use bundle option</title><link>https://crc.dev/blog/posts/2024-03-22-use-bundle-option/</link><pubDate>Fri, 22 Mar 2024 12:39:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2024-03-22-use-bundle-option/</guid><description>&lt;p>CRC provides a config option called &lt;code>bundle&lt;/code> to configure the &lt;em>location&lt;/em> of the bundle. This option is useful when you
+want to use a bundle that is not the default one or user want to try a bundle which is not part of release but available
+at the OpenShift mirror location. The &lt;code>bundle&lt;/code> option can accept local filesystem paths, container registry URLs, and
+http/https URLs. This blog post will guide you through the process of using the &lt;code>bundle&lt;/code> option using config or
+setup/start commands.&lt;/p>
+&lt;h2 id="using-bundle-option-with-crc-config-command" >Using &lt;code>bundle&lt;/code> option with &lt;code>crc config&lt;/code> command
+&lt;span>
+&lt;a href="#using-bundle-option-with-crc-config-command">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>You can use the &lt;code>crc config set bundle&lt;/code> command to set the bundle location. This command can accept local filesystem paths,
+container registry URLs, and http/https URLs. Here are some examples:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Assume user want to use microshift-4.15.0 bundle which is not part of crc release but available at the OpenShift mirror location&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc config set bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc setup
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-bundle-option-with-crc-setup-and-crc-start-commands" >Using &lt;code>bundle&lt;/code> option with &lt;code>crc setup&lt;/code> and &lt;code>crc start&lt;/code> commands
+&lt;span>
+&lt;a href="#using-bundle-option-with-crc-setup-and-crc-start-commands">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Beware&lt;/strong>, if you use -b https:// there will be no signature checks
+Bundles downloaded from mirror.openshift.com can be verified this way:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sha256sum crc_microshift_libvirt_4.15.0_amd64.crcbundle &lt;span style="color:#f92672">=&lt;/span>&amp;gt; should match with the content of crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="conclusion" >Conclusion
+&lt;span>
+&lt;a href="#conclusion">
+&lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
+&lt;/a>
+&lt;/span>
+&lt;/h2>&lt;p>This blog post has shown you how to use the &lt;code>bundle&lt;/code> option with CRC. By following these steps, you can quickly and easily
+spin up a local cluster using the bundle of your choice.
+As usual, we&amp;rsquo;d like to get your &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> on all this work!&lt;/p></description></item><item><title>A Step-by-Step Guide to Creating the MicroShift next Bundle</title><link>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</link><pubDate>Tue, 22 Aug 2023 12:30:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2023-08-22-create-microshift-next-bundle/</guid><description>&lt;p>CRC is a tool that allows you to quickly and easily spin up a local OpenShift cluster.
 It is a great way to learn about OpenShift/OKD/MicroShift and to test out new features.&lt;/p>
 &lt;p>If you&amp;rsquo;re looking to experiment with the upcoming MicroShift release and want to learn
 how to create the bundle to consume it with CRC, you&amp;rsquo;re in the right place!
