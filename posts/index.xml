@@ -11,24 +11,24 @@ setup/start commands.&lt;/p>
 &lt;/span>
 &lt;/h2>&lt;p>You can use the &lt;code>crc config set bundle&lt;/code> command to set the bundle location. This command can accept local filesystem paths,
 container registry URLs, and http/https URLs. Here are some examples:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Assume user want to use microshift-4.15.0 bundle which is not part of crc release but available at the OpenShift mirror location&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc config set bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc setup
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-bundle-option-with-crc-setup-and-crc-start-commands" >Using &lt;code>bundle&lt;/code> option with &lt;code>crc setup&lt;/code> and &lt;code>crc start&lt;/code> commands
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Assume user want to use microshift-4.15.0 bundle which is not part of crc release but available at the OpenShift mirror location&lt;/span>
+crc config set bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+crc setup
+crc start
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-bundle-option-with-crc-setup-and-crc-start-commands" >Using &lt;code>bundle&lt;/code> option with &lt;code>crc setup&lt;/code> and &lt;code>crc start&lt;/code> commands
 &lt;span>
 &lt;a href="#using-bundle-option-with-crc-setup-and-crc-start-commands">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
 &lt;/a>
 &lt;/span>
-&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Beware&lt;/strong>, if you use -b https:// there will be no signature checks
+&lt;/h2>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">crc setup --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+crc start --bundle https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Beware&lt;/strong>, if you use -b https:// there will be no signature checks
 Bundles downloaded from mirror.openshift.com can be verified this way:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sha256sum crc_microshift_libvirt_4.15.0_amd64.crcbundle &lt;span style="color:#f92672">=&lt;/span>&amp;gt; should match with the content of crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="conclusion" >Conclusion
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle
+curl -L -O https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/microshift/4.15.0/crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
+sha256sum crc_microshift_libvirt_4.15.0_amd64.crcbundle &lt;span style="color:#f92672">=&lt;/span>&amp;gt; should match with the content of crc_microshift_libvirt_4.15.0_amd64.crcbundle.sha256
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="conclusion" >Conclusion
 &lt;span>
 &lt;a href="#conclusion">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
@@ -73,10 +73,10 @@ is present at MicroShift GitHub repo&lt;/p>
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>Next, you need to clone the SNC repository. This repository contains the scripts that you will use to create the bundle.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/crc-org/snc.git
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example, it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate MicroShift bundles for prerelease, first switch to the appropriate branch:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout origin/release-4.14
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="getting-the-pull-secret" >Getting the Pull Secret
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/crc-org/snc.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example, it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate MicroShift bundles for prerelease, first switch to the appropriate branch:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git checkout origin/release-4.14
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="getting-the-pull-secret" >Getting the Pull Secret
 &lt;span>
 &lt;a href="#getting-the-pull-secret">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
@@ -91,10 +91,10 @@ from &lt;a href="https://console.redhat.com/openshift/create/local">here&lt;/a> 
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>You are now ready to create the bundle. You can do this by running the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>&amp;lt;downloaded_pull_secret_file_path&amp;gt; MICROSHIFT_PRERELEASE&lt;span style="color:#f92672">=&lt;/span>yes ./microshift.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>microshift&lt;/code> script finish successfully (takes around 30-40 mins)&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>./createdisk.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Congratulations! You&amp;rsquo;ve successfully created a prerelease version of MicroShift bundle&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>&amp;lt;downloaded_pull_secret_file_path&amp;gt; MICROSHIFT_PRERELEASE&lt;span style="color:#f92672">=&lt;/span>yes ./microshift.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>microshift&lt;/code> script finish successfully (takes around 30-40 mins)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./createdisk.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Congratulations! You&amp;rsquo;ve successfully created a prerelease version of MicroShift bundle&lt;/strong>&lt;/p>
 &lt;h2 id="starting-the-cluster" >Starting the Cluster
 &lt;span>
 &lt;a href="#starting-the-cluster">
@@ -102,9 +102,9 @@ from &lt;a href="https://console.redhat.com/openshift/create/local">here&lt;/a> 
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>Once you have created the bundle, you can start the cluster by running the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created MicroShift bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">crc setup --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
+crc start --bundle crc_microshift_libvirt_4.14.0-ec.4_amd64.crcbundle
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created MicroShift bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
 &lt;h2 id="conclusion" >Conclusion
 &lt;span>
 &lt;a href="#conclusion">
@@ -145,53 +145,53 @@ It is a great way to learn about OpenShift/OKD/MicroShift and to test out new fe
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>Next, you need to clone the SNC repository. This repository contains the scripts that you will use to create the bundle.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/crc-org/snc.git
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate OKD bundles for older releases, first switch to the appropriate branch:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git checkout origin/release-4.12
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="setting-the-okd-version" >Setting the OKD Version
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/crc-org/snc.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> The master branch of snc always follows the latest Red Hat OpenShift Container Platform major release. For example it&amp;rsquo;s currently tracking RHOCP 4.13.x. To generate OKD bundles for older releases, first switch to the appropriate branch:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git checkout origin/release-4.12
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="setting-the-okd-version" >Setting the OKD Version
 &lt;span>
 &lt;a href="#setting-the-okd-version">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>You need to set the OKD_VERSION environment variable to the version of OKD that you want to use.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>export OKD_VERSION&lt;span style="color:#f92672">=&lt;/span>4.12.0-0.okd-2023-04-16-041331
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-pull-secret" >Creating the Pull Secret
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export OKD_VERSION&lt;span style="color:#f92672">=&lt;/span>4.12.0-0.okd-2023-04-16-041331
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-pull-secret" >Creating the Pull Secret
 &lt;span>
 &lt;a href="#creating-the-pull-secret">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>You need to create a dummy pull secret that will be used for snc script. You can create this dummmy pull secret using the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat &lt;span style="color:#e6db74">&amp;lt;&amp;lt;EOF &amp;gt; pullsecret.json
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">{
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;auths&amp;#34;: {
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;fake&amp;#34;: {
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;auth&amp;#34;: &amp;#34;Zm9vOmJhcgo=&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> }
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> }
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">}
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">EOF&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-bundle" >Creating the Bundle
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cat &lt;span style="color:#e6db74">&amp;lt;&amp;lt;EOF &amp;gt; pullsecret.json
+&lt;/span>&lt;span style="color:#e6db74">{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;auths&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;fake&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;auth&amp;#34;: &amp;#34;Zm9vOmJhcgo=&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74">}
+&lt;/span>&lt;span style="color:#e6db74">EOF&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="creating-the-bundle" >Creating the Bundle
 &lt;span>
 &lt;a href="#creating-the-bundle">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>You are now ready to create the bundle. You can do this by running the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>pullsecret.json ./snc.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>snc.sh&lt;/code> script finish successfully (takes around 40-50 mins)&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>./createdisk.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="starting-the-cluster" >Starting the Cluster
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">OPENSHIFT_PULL_SECRET_PATH&lt;span style="color:#f92672">=&lt;/span>pullsecret.json ./snc.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note: Wait till the &lt;code>snc.sh&lt;/code> script finish successfully (takes around 40-50 mins)&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./createdisk.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="starting-the-cluster" >Starting the Cluster
 &lt;span>
 &lt;a href="#starting-the-cluster">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
 &lt;/a>
 &lt;/span>
 &lt;/h2>&lt;p>Once you have created the bundle, you can start the cluster by running the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>crc setup --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>crc start --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created OKD bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">crc setup --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
+crc start --bundle crc_okd_libvirt_4.12.0-0.okd-2023-04-16-041331_amd64.crcbundle
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the cluster with created OKD bundles. Once the cluster is started, you can follow the instructions at the end of start to access it.&lt;/p>
 &lt;h2 id="conclusion" >Conclusion
 &lt;span>
 &lt;a href="#conclusion">
@@ -231,22 +231,21 @@ in addition to local filesystem paths.&lt;/p>
 bundle location, these are explained below with use cases.&lt;/p>
 &lt;p>Case 1: If users want to use their own internal container registry for podman/okd bundles then they can
 &lt;em>copy&lt;/em> the bundle images from &lt;code>quay.io&lt;/code> to their internal container registry using &lt;a href="https://github.com/containers/skopeo">skopeo&lt;/a>.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Copy latest 4.2.0 podman bundle to internal registry&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ skopeo copy -a docker://quay.io/crcont/podman-bundle:4.2.0 docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config set bundle docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config set preset podman
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 2: If user tries to use the bundle which is part of internal http/https location&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ crc config set bundle https://&amp;lt;internal_server&amp;gt;/crc_libvirt_4.11.3_amd64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 3: If a user tries to use the bundle which is downloaded locally&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ crc config set bundle &amp;lt;local_bundle_path&amp;gt;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Copy latest 4.2.0 podman bundle to internal registry&lt;/span>
+$ skopeo copy -a docker://quay.io/crcont/podman-bundle:4.2.0 docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
+$ crc config set bundle docker://&amp;lt;internal_registry&amp;gt;/podman-bundle:4.2.0
+$ crc config set preset podman
+$ crc setup
+$ crc start
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 2: If user tries to use the bundle which is part of internal http/https location&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ crc config set bundle https://&amp;lt;internal_server&amp;gt;/crc_libvirt_4.11.3_amd64.crcbundle
+$ crc setup
+$ crc start
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Case 3: If a user tries to use the bundle which is downloaded locally&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ crc config set bundle &amp;lt;local_bundle_path&amp;gt;
+$ crc setup
+$ crc start
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>As usual, we&amp;rsquo;d like to get as much &lt;a href="https://github.com/crc-org/crc/issues/new/choose">feedback&lt;/a> as possible on all this work!&lt;/p></description></item><item><title>Running OKD with CRC</title><link>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</link><pubDate>Mon, 22 Aug 2022 09:14:10 +0530</pubDate><guid>https://crc.dev/blog/posts/2022-08-22-okd-on-crc/</guid><description>&lt;p>It has been long time since CRC with an updated OKD bundle was released. Last release was &lt;a href="https://www.okd.io/crc/#get-started">1.x&lt;/a> and
 not updated since then. During our 2.x development cycle, we made effort on CRC&amp;rsquo;s side to decouple the bundles from the release
 artifacts. It allows us to create the bundle independently of the release and upload it to separate location.&lt;/p>
 &lt;p>Another change we made during 2.x is to add support for presets and from starting we are supporting &lt;code>podman&lt;/code> and &lt;code>openshift&lt;/code>
@@ -262,24 +261,21 @@ an &lt;code>okd&lt;/code> preset was added and users can now use same &lt;code>c
 &lt;/h1>&lt;p>The CRC team created the OKD bundle for &lt;a href="https://github.com/openshift/okd/releases/tag/4.11.0-0.okd-2022-07-29-154152">4.11.0-0.okd-2022-07-29-154152&lt;/a> release
 and pushed it as container image to &lt;a href="https://quay.io/repository/crcont/okd-bundle">quay&lt;/a>. With the &lt;code>okd&lt;/code> preset, the user is now able to
 run an OKD cluster locally similar to OCP.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ crc config set preset okd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Changes to configuration property &lt;span style="color:#e6db74">&amp;#39;preset&amp;#39;&lt;/span> are only applied when the CRC instance is created.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>If you already have a running CRC instance with different preset, &lt;span style="color:#66d9ef">then&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> this configuration change to take effect, delete the CRC instance with &lt;span style="color:#e6db74">&amp;#39;crc delete&amp;#39;&lt;/span>, setup it with &lt;span style="color:#e6db74">`&lt;/span>crc setup&lt;span style="color:#e6db74">`&lt;/span> and start it with &lt;span style="color:#e6db74">&amp;#39;crc start&amp;#39;&lt;/span>.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc config view
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- consent-telemetry : yes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- preset : okd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc setup
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Checking &lt;span style="color:#66d9ef">if&lt;/span> /Users/prkumar/.crc/cache/crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle exists
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Getting bundle &lt;span style="color:#66d9ef">for&lt;/span> the CRC executable
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>INFO Downloading crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ crc start
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">$ crc config set preset okd
+Changes to configuration property &lt;span style="color:#e6db74">&amp;#39;preset&amp;#39;&lt;/span> are only applied when the CRC instance is created.
+If you already have a running CRC instance with different preset, &lt;span style="color:#66d9ef">then&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> this configuration change to take effect, delete the CRC instance with &lt;span style="color:#e6db74">&amp;#39;crc delete&amp;#39;&lt;/span>, setup it with &lt;span style="color:#e6db74">`&lt;/span>crc setup&lt;span style="color:#e6db74">`&lt;/span> and start it with &lt;span style="color:#e6db74">&amp;#39;crc start&amp;#39;&lt;/span>.
+$ crc config view
+- consent-telemetry : yes
+- preset : okd
+$ crc setup
+&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+INFO Checking &lt;span style="color:#66d9ef">if&lt;/span> /Users/prkumar/.crc/cache/crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle exists
+INFO Getting bundle &lt;span style="color:#66d9ef">for&lt;/span> the CRC executable
+INFO Downloading crc_okd_vfkit_4.11.0-0.okd-2022-07-29-154152_arm64.crcbundle
+&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+$ crc start
+&lt;span style="color:#f92672">[&lt;/span>...&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
 &lt;span>
 &lt;a href="#where-were-at">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
@@ -320,12 +316,12 @@ compiled for a 64K page size, but Apple M1 processor uses 4K or a maximum size o
 &lt;/span>
 &lt;/h1>&lt;p>After we provision the Openshift cluster we replaced the RHEL-8 kernel packages to RHEL-9 which doesn&amp;rsquo;t have issue to boot on
 Apple M1 machines. Using this kernel it is possible to workaround this issue, and we are able to run the created disk image on M1.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ rpm -qa | grep kernel
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-5.14.0-70.13.1.el9_0.aarch64
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-core-5.14.0-70.13.1.el9_0.aarch64
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-modules-extra-5.14.0-70.13.1.el9_0.aarch64
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>kernel-modules-5.14.0-70.13.1.el9_0.aarch64
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">$ rpm -qa | grep kernel
+kernel-5.14.0-70.13.1.el9_0.aarch64
+kernel-core-5.14.0-70.13.1.el9_0.aarch64
+kernel-modules-extra-5.14.0-70.13.1.el9_0.aarch64
+kernel-modules-5.14.0-70.13.1.el9_0.aarch64
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="where-were-at" >Where we&amp;rsquo;re at
 &lt;span>
 &lt;a href="#where-were-at">
 &lt;svg viewBox="0 0 28 23" height="100%" width="19" xmlns="http://www.w3.org/2000/svg">&lt;path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>&lt;/svg>
