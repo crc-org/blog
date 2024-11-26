@@ -1,0 +1,13 @@
+{
+    "name": "Hugo environment",
+    "build": {
+        "dockerfile": "Containerfile"
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+            ]
+        }
+    }
+}

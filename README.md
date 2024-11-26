@@ -17,3 +17,16 @@ $ cd blog
 $ git submodule update --init
 $ podman run --rm -v $PWD:/workspace ghcr.io/gbraad-redhat/hugo:0.127.0 --minify
 ```
+
+This will create a `./public/` folder that contains the output as published on GH Pages.
+
+
+### Devcontainer
+You can also use the devcontainer setup. This will start the generation container and allows you to use the `hugo` command line directlky from inside the editor.
+
+This can be started from CodeSpaces, VS Code or the CLI
+
+```
+$ npm install -g @devcontainers/cli
+$ devconatiner up
+```
