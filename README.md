@@ -20,6 +20,9 @@ $ podman run --rm -v $PWD:/workspace ghcr.io/gbraad-redhat/hugo:0.127.0 --minify
 
 This will create a `./public/` folder that contains the output as published on GH Pages.
 
+> [!IMPORTANT]
+> Make sure to run `git submodule update --init` to pull remote modules, otherwise the theme is not be available. This will cause the generation to fail
+
 
 ### Devcontainer
 You can also use the devcontainer setup. This will start the generation container and allows you to use the `hugo` command line directlky from inside the editor.
