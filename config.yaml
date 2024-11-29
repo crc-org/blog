@@ -8,8 +8,8 @@ enableRobotsTXT: true
 menu:
   main:
   - identifier: docs
-    name: Product Docs
-    url: https://crc.dev/crc
+    name: Getting Started Guide
+    url: https://crc.dev/docs
     weight: 1
   - identifier: eng-docs
     name: Engineering Docs
