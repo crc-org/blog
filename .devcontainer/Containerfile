@@ -1,4 +1,4 @@
-FROM ghcr.io/gbraad-redhat/hugo:0.127.0
+FROM quay.io/crc-org/hugo:0.127.0
 
 RUN dnf install -y git-core \
     && dnf clean all \
