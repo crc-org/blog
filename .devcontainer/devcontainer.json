@@ -3,6 +3,7 @@
     "build": {
         "dockerfile": "Containerfile"
     },
+    "postStartCommand": "git submodule update --init",
 
     "customizations": {
         "vscode": {
