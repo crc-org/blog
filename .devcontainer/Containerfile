@@ -1,4 +1,4 @@
-FROM quay.io/crc-org/hugo:0.127.0
+FROM ghcr.io/crc-org/hugo:latest
 
 RUN dnf install -y git-core \
     && dnf clean all \

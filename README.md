@@ -15,7 +15,7 @@ The simplest way to generate the output is as follows:
 $ git clone https://github.com/crc-org/blog
 $ cd blog
 $ git submodule update --init
-$ podman run --rm -v $PWD:/workspace quay.io/crc-org/hugo:0.127.0 --minify
+$ podman run --rm -v $PWD:/workspace ghcr.io/crc-org/hugo:latest --minify
 ```
 
 This will create a `./public/` folder that contains the output as published on GH Pages.

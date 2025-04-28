@@ -1,11 +1,11 @@
-FROM registry.fedoraproject.org/fedora:40 AS downloader
+FROM registry.fedoraproject.org/fedora:latest AS downloader
 
+RUN LATEST_VERSION=$(curl --silent "https://api.github.com/repos/gohugoio/hugo/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")') \
+    && URL="https://github.com/gohugoio/hugo/releases/download/${LATEST_VERSION}/hugo_extended_${LATEST_VERSION#v}_Linux-64bit.tar.gz" \
+    && curl -L -o hugo.tar.gz "$URL" \
+    && tar -xvzf hugo.tar.gz -C /
 
-RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.127.0/hugo_0.127.0_Linux-64bit.tar.gz -o hugo.tar.gz \
-    && tar -zxvf hugo.tar.gz
-
-
-FROM registry.fedoraproject.org/fedora:40
+FROM registry.fedoraproject.org/fedora:latest
 
 COPY --from=downloader /hugo /usr/bin
 

@@ -2,8 +2,10 @@ languageCode: "en-US"
 baseUrl: "https://crc.dev/blog/"
 title: "CRC - Runs Containers"
 theme: "anubis"
-paginate: 10
 enableRobotsTXT: true
+
+pagination:
+  pagerSize: 10
 
 menu:
   main:
