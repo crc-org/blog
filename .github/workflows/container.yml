@@ -1,0 +1,27 @@
+name: Build Container
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Container
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Build container
+        run: |
+          podman build -t ghcr.io/${{ github.repository_owner }}/hugo:latest \
+            -f containers/Containerfile
+
+      - name: Login to container registry
+        run: |
+          podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to registry
+        run: |
+          podman push ghcr.io/${{ github.repository_owner }}/hugo:latest
+
